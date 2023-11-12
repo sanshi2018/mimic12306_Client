@@ -11,6 +11,13 @@ import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'HomeView',
+  setup() {
+    // 如果没有登录，跳转到登录页面
+    if (!localStorage.getItem('token')) {
+      this.$router.push('/login');
+    }
+    
+  },
   components: {
     HelloWorld
   }
