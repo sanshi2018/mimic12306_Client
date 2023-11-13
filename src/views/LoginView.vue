@@ -31,6 +31,9 @@ import { defineComponent, reactive } from 'vue';
 import axios from 'axios';
 // 引入通知组件
 import { notification } from 'ant-design-vue';
+// 实现路由跳转组件
+import { useRouter } from 'vue-router';
+
 
 export default defineComponent({
   name: "loginView",
@@ -40,9 +43,11 @@ export default defineComponent({
       code: '',
     });
 
+    const router = useRouter();
+
     const sendCode = () => {
       // 发送http post请求
-      axios.post('http://localhost:8000/member/member/send-code', {
+      axios.post('/member/member/send-code', {
         mobile: loginForm.mobile
       })
         .then(res => {
@@ -68,7 +73,7 @@ export default defineComponent({
 
     const login = () => {
       // 发送http post请求
-      axios.post('http://localhost:8000/member/member/login', {
+      axios.post('/member/member/login', {
         mobile: loginForm.mobile,
         code: loginForm.code
       })
@@ -81,9 +86,10 @@ export default defineComponent({
               description: '登录成功'
             });
             // 保存token
-            localStorage.setItem('token', data.data);
+            // localStorage.setItem('token', data.data);
             // 跳转到首页
             window.location.href = '/';
+            router.push('/');
           } else {
             notification.error({
               message: '登录失败',
