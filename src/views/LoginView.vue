@@ -33,6 +33,8 @@ import axios from 'axios';
 import { notification } from 'ant-design-vue';
 // 实现路由跳转组件
 import { useRouter } from 'vue-router';
+// 引入store 内部缓存 @代表根目录
+import store from '@/store';
 
 
 export default defineComponent({
@@ -86,9 +88,10 @@ export default defineComponent({
               description: '登录成功'
             });
             // 保存token
-            // localStorage.setItem('token', data.data);
+            store.commit('setMember', data.content);
+            // localStorage.setItem('token', data.data.token);
             // 跳转到首页
-            window.location.href = '/';
+            // window.location.href = '/';
             router.push('/');
           } else {
             notification.error({
