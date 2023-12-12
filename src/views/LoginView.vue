@@ -92,7 +92,7 @@ export default defineComponent({
             // localStorage.setItem('token', data.data.token);
             // 跳转到首页
             // window.location.href = '/';
-            router.push('/');
+            router.push('/welcome');
           } else {
             notification.error({
               message: '登录失败',

@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import Antd from 'ant-design-vue';
+import Antd, { notification } from 'ant-design-vue';
 import router from './router'
 import store from './store'
 import 'ant-design-vue/dist/reset.css';
@@ -26,8 +26,17 @@ axios.interceptors.request.use(
         //     config.headers.Authorization = store.state.token;
         // }
         // return config;
+        const token = store.state.member.token;
+        if(token) {
+            config.headers.token = token;
+        }
         console.log("请求参数", config);
+
         return config;
+    }, error => {
+        // 请求错误
+        console.log("请求错误", error);
+        return Promise.reject(error);
     }
 );
 
@@ -40,6 +49,13 @@ axios.interceptors.response.use(
     }, error => {
         // 响应错误
         console.log("响应错误", error);
+        if (error.response.status === 401) {
+            console.log("未登录，跳转到登录页");
+            store.commit('setMember', {});
+            notification.error({description: '未登录，请先登录', message: '错误'});
+            // 401错误，跳转到登录页
+            router.push('/login');
+        }
         return Promise.reject(error);
     }
 );

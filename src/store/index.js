@@ -1,10 +1,11 @@
 import { createStore } from 'vuex'
 
+const MEMBER = 'MEMBER'; 
 // 全局变量，主要用于页面传递参数
 export default createStore({
   state: {
     // def
-    member: {}
+    member: window.SessionStorage.get(MEMBER) || {}
   },
   getters: {
   },
@@ -12,6 +13,7 @@ export default createStore({
     // set-methond
     setMember(state, _member) {
       state.member = _member;
+      window.SessionStorage.set(MEMBER, _member)
     }
   },
   actions: {
