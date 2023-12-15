@@ -13,13 +13,13 @@
       >
         <a-menu-item key="/welcome">
           <router-link to="/welcome">
-            <CoffeeOutlined /> &nbsp;欢迎
+            <coffee-outlined /> &nbsp;欢迎
           </router-link>
         </a-menu-item>
 
         <a-menu-item key="/passenger">
           <router-link to="/passenger">
-            <CoffeeOutlined /> &nbsp;乘车人管理
+            <user-outlined /> &nbsp;乘车人管理
           </router-link>
         </a-menu-item>
       </a-menu>
@@ -32,7 +32,6 @@
 import { defineComponent, ref, watch} from 'vue';
 
 import store from '@/store';
-import { CoffeeOutlined } from '@ant-design/icons-vue';
 import router from '@/router';
 
 export default defineComponent({
@@ -46,14 +45,13 @@ export default defineComponent({
             selectedKeys.value = [];
             selectedKeys.value.push(path);
             // selectedKeys.value = [path];
-        });
+        }, { immediate: true });
         return {
             // selectedKeys1: ref(['2']),
             member,
             selectedKeys
         };
-    },
-    components: { CoffeeOutlined }
+    }
 });
 </script>
 

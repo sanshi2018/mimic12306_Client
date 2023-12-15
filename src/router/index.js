@@ -36,10 +36,10 @@ const routes = [
       component: () => import('../views/main/PassengerView.vue')
     }]
   },
-  // {
-  //   path: '',
-  //   redirect: 'welcome'
-  // }
+  {
+    path: '',
+    redirect: 'welcome'
+  }
   
 ]
 
