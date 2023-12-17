@@ -1,10 +1,24 @@
 <template>
     <p>
-        <a-button type="primary" @click="showModal">新增</a-button>
+        <a-space>
+            <a-button type="primary" @click="handleQuery()">刷新</a-button>
+            <a-button type="primary" @click="onAdd">新增</a-button>
+        </a-space>
     </p>
-    <a-table :dataSource="passengers" :columns="columns" :pagination="pagination" />
+    <a-table :dataSource="passengers" :columns="columns" :pagination="pagination" 
+        @change="handleTableChange"
+        :loading="loading">
 
-    <a-modal title="新增乘车人" :visible="visible" @ok="handleOk" @cancel="handleCancel" ok-text="确认" cancel-text="取消">
+        <template #bodyCell="{ column, record }">
+            <template v-if="column.dataIndex == 'operation'">
+                <a-space>
+                    <a @click="onEdit(record)">编辑</a>
+                </a-space>
+            </template>
+        </template>
+    </a-table>
+
+    <a-modal title="新增乘车人" v-model:open="visible" @ok="handleOk" @cancel="handleCancel" ok-text="确认" cancel-text="取消">
         <a-form :model="passenger" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
             <a-form-item label="姓名">
                 <a-input v-model:value="passenger.name" />
@@ -17,15 +31,15 @@
             <a-form-item label="类型">
                 <a-select v-model:value="passenger.type">
                     <a-select-option value="1">成人</a-select-option>
-                    <a-select-option value="1">儿童</a-select-option>
-                    <a-select-option value="1">学生</a-select-option>
+                    <a-select-option value="2">儿童</a-select-option>
+                    <a-select-option value="3">学生</a-select-option>
                 </a-select>
             </a-form-item>
         </a-form>
     </a-modal>
 </template>
 <script>
-import { defineComponent, ref, reactive, onMounted} from 'vue';
+import { defineComponent, ref, onMounted } from 'vue';
 import { notification } from "ant-design-vue"
 import axios from 'axios';
 
@@ -34,10 +48,8 @@ export default defineComponent({
     // 页面生命周期，页面初始化前执行setup
     setup() {
         const visible = ref();
-        // ref vs reactive 对reactive数组使用 = 赋值，会让其失去响应式特性，不会触发视图更新，ref会触发视图更新
-        // ref 变量使用 .value进行赋值
         //----新增乘车人数据结构
-        const passenger = reactive({
+        const passenger = ref({
             id: undefined,
             memberId: undefined,
             name: undefined,
@@ -62,24 +74,54 @@ export default defineComponent({
             title: '类型',
             dataIndex: 'type',
             key: 'type',
+        }, {
+            title: '操作',
+            dataIndex: 'operation',
         }];
         //---分页
-        const pagination = reactive({
+        const pagination = ref({
             total: 0,
             current: 1,
             pageSize: 2
         })
+        //---loading
+        const loading = ref(false)
+
+        //---方法-----------
 
         const showModal = () => {
+            passenger.value = {}
             visible.value = true;
         };
 
+        const hindeModal = () => {
+            visible.value = false;
+        };
+
+        const onEdit = (record) => {
+            showModal();
+            // passenger.value = record
+            // 深拷贝record对象
+            passenger.value = JSON.parse(JSON.stringify(record))
+            // passenger.value = window.Tool.copy(record);
+            
+        };
+
+        const onAdd = () => {
+            showModal();
+        };
+
         const handleOk = () => {
-            axios.post("/member/passenger/save", passenger).then((response) => {
+            axios.post("/member/passenger/save", passenger.value).then((response) => {
                 let data = response.data
                 if (data.success) {
                     notification.success({ description: "保存成功！" })
-                    visible.value = false;
+                    hindeModal();
+                    // onModalClose();
+                    handleQuery({
+                        page: pagination.value.current,
+                        size: pagination.value.pageSize
+                    })
                 } else {
                     notification.error({ description: data.message })
                 }
@@ -87,12 +129,31 @@ export default defineComponent({
         };
 
         const handleCancel = () => {
-            visible.value = false;
+            hindeModal();
+            // onModalClose();
         };
 
+        // const onModalClose = () => {
+        //     passenger.id = undefined
+        //     passenger.memberId = undefined
+        //     passenger.name = undefined
+        //     passenger.idCard = undefined
+        //     passenger.type = undefined
+        //     passenger.createTime = undefined
+        //     passenger.updateTime = undefined
+        // }
+
         const handleQuery = (param) => {
+            loading.value = true
+            if (!param) {
+                param = {
+                    page: 1,
+                    size: pagination.value.pageSize
+                }
+            }
+
             axios.get("/member/passenger/query-list", {
-                params : {
+                params: {
                     page: param.page,
                     size: param.size
                 }
@@ -100,26 +161,38 @@ export default defineComponent({
                 let data = response.data
                 if (data.success) {
                     passengers.value = data.content.list
-                    pagination.total = data.content.total
+                    pagination.value.total = data.content.total
+                    pagination.value.current = param.page
                 } else {
                     notification.error({ description: data.message })
                 }
+            }).finally(() => {
+                loading.value = false
             })
+        }
+
+        // 选择下标发生变化时触发
+        const handleTableChange = (pagination) => {
+            handleQuery({ page: pagination.current, size: pagination.pageSize })
         }
 
         // 页面生命周期 :页面加载完毕后执行onMounted
         onMounted(() => {
-            handleQuery({page: 1, size: 10})
+            handleQuery({ page: pagination.value.current, size: pagination.value.pageSize })
         })
         return {
             visible,
             passenger,
-            showModal,
             handleOk,
+            onAdd,
+            onEdit,
             handleCancel,
+            handleQuery,
+            handleTableChange,
             passengers,
             columns,
-            pagination
+            pagination,
+            loading
         };
     },
 });
