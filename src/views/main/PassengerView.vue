@@ -1,5 +1,9 @@
 <template>
-    <a-button type="primary" @click="showModal">新增</a-button>
+    <p>
+        <a-button type="primary" @click="showModal">新增</a-button>
+    </p>
+    <a-table :dataSource="dataSource" :columns="columns" />
+
     <a-modal title="新增乘车人" :visible="visible" @ok="handleOk" @cancel="handleCancel" ok-text="确认" cancel-text="取消">
         <a-form :model="passenger" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
             <a-form-item label="姓名">
@@ -22,7 +26,7 @@
 </template>
 <script>
 import { defineComponent, ref, reactive } from 'vue';
-import {notification} from "ant-design-vue"
+import { notification } from "ant-design-vue"
 import axios from 'axios';
 
 export default defineComponent({
@@ -39,6 +43,33 @@ export default defineComponent({
             updateTime: undefined,
         })
 
+        //----表格数据源
+        const dataSource = [{
+            key: '1',
+            name: '胡彦斌',
+            age: 32,
+            address: '西湖区湖底公园1号',
+        }, {
+            key: '2',
+            name: '胡彦祖',
+            age: 42,
+            address: '西湖区湖底公园1号',
+        }];
+        // 表格定义
+        const columns = [{
+            title: '姓名',
+            dataIndex: 'name',
+            key: 'name',
+        }, {
+            title: '年龄',
+            dataIndex: 'age',
+            key: 'age',
+        }, {
+            title: '住址',
+            dataIndex: 'address',
+            key: 'address',
+        }];
+
         const showModal = () => {
             visible.value = true;
         };
@@ -46,11 +77,11 @@ export default defineComponent({
         const handleOk = () => {
             axios.post("/member/passenger/save", passenger).then((response) => {
                 let data = response.data
-                if(data.success) {
-                    notification.success({description:"保存成功！"})
+                if (data.success) {
+                    notification.success({ description: "保存成功！" })
                     visible.value = false;
                 } else {
-                    notification.error({description:data.message})
+                    notification.error({ description: data.message })
                 }
             })
         };
@@ -63,7 +94,9 @@ export default defineComponent({
             passenger,
             showModal,
             handleOk,
-            handleCancel
+            handleCancel,
+            dataSource,
+            columns
         };
     },
 });
