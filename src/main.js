@@ -6,6 +6,7 @@ import store from './store'
 import 'ant-design-vue/dist/reset.css';
 import * as Icons from '@ant-design/icons-vue';
 import axios from 'axios';
+import './assets/js/enums';
 
 const app = createApp(App);
 // 初始入口配置页面

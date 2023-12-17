@@ -43,6 +43,9 @@
     "rules": {
       "vue/no-unused-components": "off",
       "no-unused-vars":"off"
+    },
+    "globals": {
+      "PASSENGER_TYPE_ARRAY": true
     }
   },
   "browserslist": [

@@ -54,7 +54,7 @@ export default defineComponent({
     name: "PassengerView",
     // 页面生命周期，页面初始化前执行setup
     setup() {
-        const PASSENGER_TYPE_ARRAY = [{key: "1", value: "成人"}, {key: "2", value: "儿童"}, {key: "3", value: "学生"}];
+        const PASSENGER_TYPE_ARRAY = window.PASSENGER_TYPE_ARRAY;
         const visible = ref();
         //----新增乘车人数据结构
         const passenger = ref({
@@ -110,8 +110,8 @@ export default defineComponent({
             showModal();
             // passenger.value = record
             // 深拷贝record对象
-            passenger.value = JSON.parse(JSON.stringify(record))
-            // passenger.value = window.Tool.copy(record);
+            // passenger.value = JSON.parse(JSON.stringify(record))
+            passenger.value = window.Tool.copy(record);
             
         };
         const onDelete = (record) => {
