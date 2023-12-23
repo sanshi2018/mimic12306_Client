@@ -11,9 +11,9 @@
             </router-link>
         </a-menu-item>
         
-        <a-menu-item key="/passenger">
-            <router-link to="/passenger">
-            <CoffeeOutlined /> &nbsp;乘车人管理
+        <a-menu-item key="/about">
+            <router-link to="/about">
+            <CoffeeOutlined /> &nbsp;关于
             </router-link>
         </a-menu-item>
 
