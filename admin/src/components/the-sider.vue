@@ -17,6 +17,17 @@
             </router-link>
         </a-menu-item>
 
+        <a-menu-item key="/station">
+            <router-link to="/station">
+            <CoffeeOutlined /> &nbsp;车站管理
+            </router-link>
+        </a-menu-item>
+
+        <a-menu-item key="/train">
+            <router-link to="/train">
+            <CoffeeOutlined /> &nbsp;火车管理
+            </router-link>
+        </a-menu-item>
         </a-menu>
     </a-layout-sider>
 </template>
