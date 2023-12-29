@@ -22,6 +22,7 @@ for (const i in icons) {
 // 添加axios拦截器
 axios.interceptors.request.use(
     config => {
+        console.log("请求参数", config);
         return config;
     }, error => {
         // 请求错误

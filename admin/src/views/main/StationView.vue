@@ -90,9 +90,12 @@ export default defineComponent({
 
     // 使用watch监听name的变化，自动更新namePinyin和namePy
     watch(() => station.value.name, (name) => {
-      if(Tool.isNotEmpty(name)) {
+      if(window.Tool.isNotEmpty(name)) {
         station.value.namePinyin = pinyin(name, { toneType: 'none'}).replaceAll(" ", "");
-        station.value.namePy = pinyin(name,, { pattern: 'first', toneType: 'none'}).replaceAll(" ", "");
+        station.value.namePy = pinyin(name, { pattern: 'first', toneType: 'none'}).replaceAll(" ", "");
+      } else{
+        station.value.namePinyin = "";
+        station.value.namePy = "";
       }
     }, {
       immediate: true
