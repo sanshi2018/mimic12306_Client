@@ -28,6 +28,18 @@
             <CoffeeOutlined /> &nbsp;火车管理
             </router-link>
         </a-menu-item>
+
+        <a-menu-item key="/train-station">
+            <router-link to="/train-station">
+            <CoffeeOutlined /> &nbsp;火车车站
+            </router-link>
+        </a-menu-item>
+
+        <a-menu-item key="/train-carriage">
+            <router-link to="/train-carriage">
+            <CoffeeOutlined /> &nbsp;火车车站
+            </router-link>
+        </a-menu-item>
         </a-menu>
     </a-layout-sider>
 </template>

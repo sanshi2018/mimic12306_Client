@@ -20,6 +20,14 @@ const routes = [
     {
       path: 'train',
       component: () => import('../views/main/TrainView.vue')
+    },
+    {
+      path: 'train-station',
+      component: () => import('../views/main/TrainStationView.vue')
+    },
+    {
+      path: 'train-carriage',
+      component: () => import('../views/main/TrainCarriageView.vue')
     }]
   },
   {

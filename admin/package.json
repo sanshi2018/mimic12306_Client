@@ -42,10 +42,15 @@
     },
     "rules": {
       "vue/no-unused-components": "off",
-      "no-unused-vars":"off"
+      "no-unused-vars": "off"
     },
     "globals": {
-      "TRAIN_TYPE_ARRAY": true
+      "PASSENGER_TYPE": true,
+      "TRAIN_TYPE": true,
+      "SEAT_TYPE": true,
+      "PASSENGER_TYPE_ARRAY": true,
+      "TRAIN_TYPE_ARRAY": true,
+      "SEAT_TYPE_ARRAY": true
     }
   },
   "browserslist": [
