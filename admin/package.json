@@ -13,6 +13,7 @@
     "ant-design-vue": "^4.0.7",
     "axios": "^1.6.1",
     "core-js": "^3.8.3",
+    "pinyin-pro": "^3.18.5",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"
@@ -50,7 +51,9 @@
       "SEAT_TYPE": true,
       "PASSENGER_TYPE_ARRAY": true,
       "TRAIN_TYPE_ARRAY": true,
-      "SEAT_TYPE_ARRAY": true
+      "SEAT_TYPE_ARRAY": true,
+      "SEAT_COL": true,
+      "SEAT_COL_ARRAY": true
     }
   },
   "browserslist": [

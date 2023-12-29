@@ -49,6 +49,12 @@
             <CoffeeOutlined /> &nbsp;车厢
             </router-link>
         </a-menu-item>
+
+        <a-menu-item key="/train-seat">
+            <router-link to="/train-seat">
+            <CoffeeOutlined /> &nbsp;车座
+            </router-link>
+        </a-menu-item>
       </a-menu>
       
     </a-layout-header>
