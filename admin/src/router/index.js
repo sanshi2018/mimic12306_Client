@@ -9,35 +9,45 @@ const routes = [
       path: 'welcome',
       component: () => import('../views/main/WelcomeView.vue')
     },
-    {
-      path: 'about',
-      component: () => import('../views/main/AboutView.vue')
-    },
-    {
-      path: 'station',
-      component: () => import('../views/main/StationView.vue')
-    },
-    {
-      path: 'train',
-      component: () => import('../views/main/TrainView.vue')
-    },
-    {
-      path: 'train-station',
-      component: () => import('../views/main/TrainStationView.vue')
-    },
-    {
-      path: 'train-carriage',
-      component: () => import('../views/main/TrainCarriageView.vue')
-    },
-    {
-      path: 'train-seat',
-      component: () => import('../views/main/TrainSeatView.vue')
-    },
-    {
-      path: 'batch/job',
-      name: 'batch/job',
-      component: () => import('../views/main/JobView.vue')
-    }]
+      {
+        path: 'about',
+        component: () => import('../views/main/base/AboutView.vue')
+      },
+      {
+        path: 'base/',
+        children: [{
+          path: 'station',
+          component: () => import('../views/main/base/StationView.vue')
+        },
+        {
+          path: 'station',
+          component: () => import('../views/main/base/StationView.vue')
+        },
+        {
+          path: 'train',
+          component: () => import('../views/main/base/TrainView.vue')
+        },
+        {
+          path: 'train-station',
+          component: () => import('../views/main/base/TrainStationView.vue')
+        },
+        {
+          path: 'train-carriage',
+          component: () => import('../views/main/base/TrainCarriageView.vue')
+        },
+        {
+          path: 'train-seat',
+          component: () => import('../views/main/base/TrainSeatView.vue')
+        }]
+      },
+
+      {
+        path: 'batch/',
+        children: [{
+          path: 'job',
+            component: () => import('../views/main/batch/JobView.vue')
+        }]
+      }]
   },
   {
     path: '',
