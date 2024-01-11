@@ -10,11 +10,11 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
-    "ant-design-vue": "^4.0.7",
+    "ant-design-vue": "^4.1.0",
     "axios": "^1.6.1",
     "core-js": "^3.8.3",
     "pinyin-pro": "^3.18.5",
-    "vue": "^3.2.13",
+    "vue": "^3.4.10",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"
   },
