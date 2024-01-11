@@ -17,11 +17,17 @@
             </router-link>
         </a-menu-item>
 
-        <a-menu-item key="/station">
-            <router-link to="/station">
-            <CoffeeOutlined /> &nbsp;车站管理
-            </router-link>
+        <a-menu-item key="/batch/job">
+          <router-link to="/batch/job">
+            <MenuUnfoldOutlined />&nbsp; 任务管理
+          </router-link>
         </a-menu-item>
+
+          <a-menu-item key="/station">
+            <router-link to="/station">
+              <CoffeeOutlined/> &nbsp;车站管理
+            </router-link>
+          </a-menu-item>
 
         <a-menu-item key="/train">
             <router-link to="/train">
