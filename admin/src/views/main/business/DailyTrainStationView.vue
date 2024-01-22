@@ -34,7 +34,7 @@
       </a-form-item>
       <a-form-item label="车次编号">
 <!--        <a-input v-model:value="dailyTrainStation.trainCode" />-->
-        <train-select-view v-model="dailyTrainStation.trainCode"/>
+        <train-select-view v-model="dailyTrainStation.trainCode" @change="onChangeCode"/>
       </a-form-item>
       <a-form-item label="站序">
         <a-input v-model:value="dailyTrainStation.index" />
@@ -256,6 +256,14 @@ export default defineComponent({
       });
     };
 
+    const onChangeCode = (train) => {
+      console.log("车次下拉组件:", train);
+      let copy = window.Tool.copy(train);
+      delete copy.id;
+
+      dailyTrainStation.value = Object.assign(dailyTrainStation.value, copy);
+    };
+
     onMounted(() => {
       handleQuery({
         page: 1,
@@ -276,6 +284,7 @@ export default defineComponent({
       handleOk,
       onEdit,
       onDelete,
+      onChangeCode,
       params
     };
   },
