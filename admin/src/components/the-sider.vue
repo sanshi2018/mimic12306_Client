@@ -46,6 +46,11 @@
             </router-link>
           </a-menu-item>
 
+          <a-menu-item key="/business/daily-train-seat">
+            <router-link to="/business/daily-train-seat">
+              <MenuUnfoldOutlined />&nbsp; 每日车座
+          </a-menu-item>
+
         </a-sub-menu>
 
         <a-sub-menu key="base">
