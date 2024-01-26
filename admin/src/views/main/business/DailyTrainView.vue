@@ -70,7 +70,9 @@
       </a-form-item>
     </a-form>
   </a-modal>
-  <a-modal v-model:visible="genDailyVisible" title="生成车次" @ok="handleGenDailyOk" ok-text="确定" cancel-text="取消">
+  <a-modal v-model:visible="genDailyVisible" title="生成车次" @ok="handleGenDailyOk"
+           :confirm-loading="genDailyLoading"
+           ok-text="确定" cancel-text="取消">
     <a-form :model="genDaily" :label-col="{span: 4}" :wrapper-col="{span: 20}">
       <a-date-picker v-model:value="genDaily.date" valueFormat="YYYY-MM-DD" placeholder="请选择日期" />
     </a-form>
@@ -120,6 +122,8 @@ export default defineComponent({
     const genDaily = ref({
       date: undefined
     })
+
+    const genDailyLoading = ref(false);
 
     const genDailyVisible = ref(false);
 
@@ -268,6 +272,7 @@ export default defineComponent({
 
     const handleGenDailyOk = () => {
       let date = dayjs(genDaily.value.date).format("YYYY-MM-DD");
+      genDailyLoading.value = true;
       axios.get("/business/admin/daily-train/gen-daily/" + date).then((response) => {
         let data = response.data;
         if (data.success) {
@@ -280,6 +285,8 @@ export default defineComponent({
         } else {
           notification.error({description: data.message});
         }
+      }).finally(() => {
+        genDailyLoading.value = false;
       });
     };
 
@@ -310,6 +317,7 @@ export default defineComponent({
       genDaily,
       genDailyVisible,
       handleGenDailyOk,
+      genDailyLoading
     };
   },
 });
