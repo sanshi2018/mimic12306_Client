@@ -42,7 +42,12 @@ const routes = [
       },
       {
         path: 'business/',
-        children: [{
+        children: [
+          {
+            path: 'daily-train-ticket',
+            component: () => import('../views/main/business/DailyTrainTicket.vue'),
+          }
+          ,{
           path: 'daily-train',
           component: () => import('../views/main/business/DailyTrainView.vue'),
         }, {
