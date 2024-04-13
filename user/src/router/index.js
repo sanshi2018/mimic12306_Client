@@ -31,10 +31,15 @@ const routes = [
       path: 'welcome',
       component: () => import('../views/main/WelcomeView.vue')
     },
-    {
-      path: 'passenger',
-      component: () => import('../views/main/PassengerView.vue')
-    }]
+      {
+        path: 'passenger',
+        component: () => import('../views/main/PassengerView.vue')
+      },
+      {
+        path: 'ticket',
+        component: () => import('../views/main/ticket.vue'),
+      }
+    ]
   },
   {
     path: '',
